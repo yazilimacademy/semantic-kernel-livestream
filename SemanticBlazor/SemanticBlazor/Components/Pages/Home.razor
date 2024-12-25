@@ -1,0 +1,78 @@
+﻿@page "/"
+@using Microsoft.SemanticKernel
+@using Microsoft.SemanticKernel.ChatCompletion
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+Welcome to your new app.
+
+<p>English result from LLaMa model:</p>
+<p>@englishResult</p>
+
+<p>Turkish translation from "gemma2:latest":</p>
+<p>@turkishResult</p>
+
+@code {
+    private string? englishResult;
+    private string? turkishResult;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var apiKey = await File.ReadAllTextAsync("C:\\Users\\alper\\Desktop\\azureopenai.txt");
+
+        // 1) Create kernel builder.
+        var builder = Kernel.CreateBuilder();
+
+        // 2) Add the Ollama (LLaMa) chat completion to get English text.
+        builder.AddOllamaChatCompletion(
+        modelId: "llama3.2-vision:11b-instruct-q8_0",
+        endpoint: new Uri("http://localhost:11434"),
+        serviceId: "llamaService"
+        );
+
+        // 3) Add the "gemma2:latest" for Turkish translation.
+         builder.AddOllamaChatCompletion(
+        modelId: "gemma2:latest",
+        endpoint: new Uri("http://localhost:11434"),
+        serviceId: "turkishTranslationService"
+        );
+
+
+
+        // 4) Build the kernel.
+        var kernel = builder.Build();
+
+        // 5) Get the "llamaService" from the kernel.
+        var llamaChatCompletion = kernel.GetRequiredService<IChatCompletionService>("llamaService");
+
+        // 6) Ask LLaMa to describe the image.
+        byte[] bytes = File.ReadAllBytes("C:\\Users\\alper\\Desktop\\alper-hoca-yaz-tatili.jpg");
+        var chatHistory = new ChatHistory("Your job is describing images clearly.");
+
+        chatHistory.AddUserMessage(
+        [
+        new TextContent("What’s in this image?"),
+new ImageContent(bytes, "image/jpeg"),
+]);
+
+        // 7) Invoke the chat completion model to get the English result.
+        var llamaReply = await llamaChatCompletion.GetChatMessageContentAsync(chatHistory);
+        englishResult = llamaReply.Content; // e.g. "There is a man standing on a stage..."
+
+        // 8) Now we call the “gemma2:latest” service to translate the English text to Turkish.
+        var translationChatCompletion = kernel.GetRequiredService<IChatCompletionService>("turkishTranslationService");
+
+        // Provide a simple system prompt to ensure it translates to Turkish.
+        var translationHistory = new ChatHistory("You are a helpful translator. Translate everything to clear Turkish regarding the context.");
+
+        translationHistory.AddUserMessage(englishResult);
+
+        // 9) Invoke the translator to get the Turkish text.
+        var translationReply = await translationChatCompletion.GetChatMessageContentAsync(translationHistory);
+
+        turkishResult = translationReply.Content;
+
+        await base.OnInitializedAsync();
+    }
+}

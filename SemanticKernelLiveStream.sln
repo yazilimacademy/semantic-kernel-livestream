@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SemanticBlazor", "SemanticBlazor", "{C0332A14-97AC-4C04-B74C-E781036C4E05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SemanticBlazor", "SemanticBlazor\SemanticBlazor\SemanticBlazor.csproj", "{82174D40-E9E8-4D97-803F-DA3725E461A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SemanticBlazor.Client", "SemanticBlazor\SemanticBlazor.Client\SemanticBlazor.Client.csproj", "{526F968E-B897-4928-83DE-39FF19F71A38}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{82174D40-E9E8-4D97-803F-DA3725E461A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82174D40-E9E8-4D97-803F-DA3725E461A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82174D40-E9E8-4D97-803F-DA3725E461A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82174D40-E9E8-4D97-803F-DA3725E461A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{526F968E-B897-4928-83DE-39FF19F71A38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{526F968E-B897-4928-83DE-39FF19F71A38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{526F968E-B897-4928-83DE-39FF19F71A38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{526F968E-B897-4928-83DE-39FF19F71A38}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{82174D40-E9E8-4D97-803F-DA3725E461A9} = {C0332A14-97AC-4C04-B74C-E781036C4E05}
+		{526F968E-B897-4928-83DE-39FF19F71A38} = {C0332A14-97AC-4C04-B74C-E781036C4E05}
+	EndGlobalSection
+EndGlobal
